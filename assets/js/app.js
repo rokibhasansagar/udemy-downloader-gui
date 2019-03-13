@@ -198,7 +198,7 @@ var $courses = $this.prev('.courses.items');
 
 $('.ui.dashboard .content').on('click','.check-updates', function(){
   $(".ui.dashboard .about.dimmer").addClass('active');
-  $.getJSON('https://api.github.com/repos/FaisalUmair/udemy-downloader-gui/releases/latest', function(response){
+  $.getJSON('https://api.github.com/repos/rokibhasansagar/udemy-downloader-gui/releases/latest', function(response){
     $(".ui.dashboard .about.dimmer").removeClass('active');
     if(response.tag_name!=`v${appVersion}`){
       $('.ui.update-available.modal').modal('show');
@@ -837,7 +837,7 @@ if(ok){
 
 
 $('.download-update.button').click(function(){
-shell.openExternal('https://github.com/FaisalUmair/udemy-downloader-gui/releases/latest');
+shell.openExternal('https://github.com/rokibhasansagar/udemy-downloader-gui/releases/latest');
 });
 
 $('.content .ui.about').on('click', 'a[href^="http"]', function(e) {
