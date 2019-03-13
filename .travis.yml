@@ -68,23 +68,3 @@ matrix:
 branches:
   only:
     - /^v\d+\.\d+(\.\d+)?(-\S*)?$/
-
-before_deploy:
-  - git config --local user.name "fr3aky"
-  - git config --local user.email "fr3aky@phantom.zone"
-  - git tag $TRAVIS_TAG
-
-deploy:
-  skip_cleanup: true
-  provider: releases
-  api_key: $GitOAUTHToken
-  file_glob: true
-  file:
-    - dist/Udeler*.AppImage
-    - dist/Udeler*.snap
-    - dist/Udeler*.exe
-    - dist/Udeler*.dmg
-    - dist/Udeler*.zip
-  on:
-    tags: true
-    branch: release
