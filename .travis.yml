@@ -26,7 +26,7 @@ matrix:
         - sudo apt install -y mono-devel ca-certificates-mono
         - sudo add-apt-repository ppa:ubuntu-wine/ppa -y
         - sudo apt update -q
-        - sudo apt install --install-recommends -y winehq-stable
+        - sudo apt install --install-recommends -y wine64
       install:
         - npm install
       script:
@@ -36,19 +36,19 @@ matrix:
       addons:
         apt:
           update: true
-        install:
-          - npm install
-        script:
-          - npm run build-linux
+      install:
+        - npm install
+      script:
+        - npm run build-linux
     - os: osx
       osx_image: xcode9.4
+      addons:
+        homebrew:
+          update: true
       install:
         - npm install
       script:
         - npm run build-mac
-  allow_failures:
-    - os: osx
-  fast_finish: true
 
 branches:
   only:
@@ -68,4 +68,7 @@ deploy:
   provider: releases
   api_key: $GitOAUTHToken
   file_glob: true
-  file: dist/Udeler*
+  file:
+    - dist/Udeler*.AppImage
+    - dist/Udeler*.exe
+    - dist/Udeler*.dmg
