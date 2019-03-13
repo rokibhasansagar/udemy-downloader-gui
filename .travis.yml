@@ -67,9 +67,6 @@ matrix:
 
 branches:
   only:
-    - release
-  except:
-    - /^(?i:untagged)-.*$/
     - /^v\d+\.\d+(\.\d+)?(-\S*)?$/
 
 before_deploy:
