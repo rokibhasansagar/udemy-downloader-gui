@@ -13,7 +13,6 @@ git:
 matrix:
   include:
     - name: "Build for Windows on Ubuntu"
-      if: tag IS present
       os: linux
       dist: xenial
       addons:
@@ -38,7 +37,6 @@ matrix:
       after_success:
         - curl --progress-bar --upload-file dist/Udeler*.exe https://transfer.sh/ && echo ""
     - name: "Build for Ubuntu"
-      if: tag IS present
       os: linux
       dist: xenial
       addons:
@@ -52,7 +50,6 @@ matrix:
       after_success:
         - curl --progress-bar --upload-file dist/Udeler*.AppImage https://transfer.sh/ && echo ""
     - name: "Build for MacOS"
-      if: tag IS present
       os: osx
       osx_image: xcode9.4
       addons:
@@ -69,9 +66,15 @@ matrix:
 
 branches:
   only:
-    - updates
+    - release
   except:
     - /^(?i:untagged)-.*$/
+    - /^v\d+\.\d+(\.\d+)?(-\S*)?$/
+
+before_deploy:
+  - git config --local user.name "fr3aky"
+  - git config --local user.email "fr3aky@phantom.zone"
+  - git tag $TRAVIS_TAG
 
 deploy:
   skip_cleanup: true
@@ -85,4 +88,4 @@ deploy:
     - dist/Udeler*.zip
   on:
     tags: true
-    branch: updates
+    branch: release
