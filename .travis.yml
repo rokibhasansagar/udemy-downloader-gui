@@ -18,18 +18,21 @@ matrix:
         apt:
           update: true
       before_install:
+        - "travis_wait 30 sleep 1800 &"
         - sudo dpkg --add-architecture i386
         - sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
         - sudo apt-get install apt-transport-https ca-certificates
         - echo "deb https://download.mono-project.com/repo/ubuntu stable-xenial main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
-        - sudo apt-get update -q
-        - sudo apt install -y mono-devel ca-certificates-mono
-        - sudo add-apt-repository ppa:ubuntu-wine/ppa -y
-        - sudo apt-get update -q
-        - sudo apt-get install --install-recommends -y wine64-*
+        - wget -nc https://dl.winehq.org/wine-builds/winehq.key
+        - sudo apt-key add winehq.key
+        - sudo apt-add-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ xenial main'
+        - sudo apt-get update -qy
+        - sudo apt-get install -y mono-complete ca-certificates-mono
+        - sudo apt-get install --install-recommends -y wine64-* winehq-stable
       install:
         - npm install
       script:
+        - "travis_wait 30 sleep 1800 &"
         - npm run build-win
     - os: linux
       dist: xenial
@@ -39,6 +42,7 @@ matrix:
       install:
         - npm install
       script:
+        - "travis_wait 30 sleep 1800 &"
         - npm run build-linux
     - os: osx
       osx_image: xcode9.4
@@ -48,6 +52,7 @@ matrix:
       install:
         - npm install
       script:
+        - "travis_wait 30 sleep 1800 &"
         - npm run build-mac
 
 branches:
@@ -60,7 +65,7 @@ branches:
 before_deploy:
   - git config --local user.name "fr3aky"
   - git config --local user.email "fr3aky@phantom.zone"
-  - export TRAVIS_TAG=${TRAVIS_TAG:-Udeler-Snapshot-$(date +'%Y%m%d')}
+  - export TRAVIS_TAG=${TRAVIS_TAG:-Udeler-Snapshot-$(date +'%Y%m%d-%H%M')}
   - git tag $TRAVIS_TAG
 
 deploy:
@@ -72,3 +77,4 @@ deploy:
     - dist/Udeler*.AppImage
     - dist/Udeler*.exe
     - dist/Udeler*.dmg
+    - dist/Udeler*.zip
