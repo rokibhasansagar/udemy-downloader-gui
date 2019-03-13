@@ -1,0 +1,38 @@
+os: linux
+
+dist: xenial
+
+sudo: required
+
+language: node_js
+
+node_js:
+  - "8"
+  - "10"
+  - "node"
+
+cache: npm
+
+addon:
+  apt:
+    update: true
+
+git:
+  depth: 3
+
+install:
+  - npm install
+
+script:
+  - npm run dist
+
+after_success:
+  - curl --progress-bar --upload-file dist/Udeler* https://file.io/?expires=14d && echo ""
+  - curl --progress-bar --upload-file dist/Udeler* https://0x0.st/ && echo ""
+
+branches:
+  only:
+    - updates
+  except:
+    - /^(?i:untagged)-.*$/
+    - /^v\d+\.\d+(\.\d+)?(-\S*)?$/
