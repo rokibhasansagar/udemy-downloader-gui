@@ -72,7 +72,6 @@ branches:
     - updates
   except:
     - /^(?i:untagged)-.*$/
-    - /^v\d+\.\d+(\.\d+)?(-\S*)?$/
 
 deploy:
   skip_cleanup: true
