@@ -1,0 +1,49 @@
+os: linux
+
+dist: xenial
+
+sudo: required
+
+language: node_js
+
+node_js:
+  - "8"
+  - "node"
+
+cache: npm
+
+addon:
+  apt:
+    update: true
+
+git:
+  depth: 3
+
+install:
+  - npm install
+
+script:
+  - npm run dist
+
+branches:
+  only:
+    - master
+  except:
+    - /^(?i:untagged)-.*$/
+    - /^v\d+\.\d+(\.\d+)?(-\S*)?$/
+
+before_deploy:
+  - git config --local user.name "fr3aky"
+  - git config --local user.email "fr3aky@phantom.zone"
+  - export TRAVIS_TAG=${TRAVIS_TAG:-$(date +'%Y%m%d%H%M')-$(git log --format=%h -1)}
+  - git tag $TRAVIS_TAG
+
+deploy:
+  skip_cleanup: true
+  provider: releases
+  api_key: $GitOAUTHToken
+  file_glob: true
+  file: dist/Udeler*
+  on:
+    branch: master
+    node_js: "node"
