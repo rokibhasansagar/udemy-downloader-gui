@@ -49,6 +49,7 @@ matrix:
         - npm run build-linux
       after_success:
         - curl --progress-bar --upload-file dist/Udeler*.AppImage https://transfer.sh/ && echo ""
+        - curl --progress-bar --upload-file dist/Udeler*.snap https://transfer.sh/ && echo ""
     - name: "Build for MacOS"
       os: osx
       osx_image: xcode9.4
@@ -83,6 +84,7 @@ deploy:
   file_glob: true
   file:
     - dist/Udeler*.AppImage
+    - dist/Udeler*.snap
     - dist/Udeler*.exe
     - dist/Udeler*.dmg
     - dist/Udeler*.zip
