@@ -18,9 +18,18 @@ cache:
 addon:
   apt:
     update: true
+  packages:
+    - winehq-stable
 
 git:
   depth: 3
+
+before_install:
+  - sudo dpkg --add-architecture i386
+  - wget -qO- https://dl.winehq.org/wine-builds/winehq.key | sudo apt-key add -
+  - sudo apt-add-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ xenial main'
+  - sudo apt install --install-recommends winehq-stable
+  - wine --version
 
 install:
   - npm install
