@@ -4,7 +4,19 @@ A cross platform (Windows, Mac, Linux) desktop application for downloading Udemy
 ### Udeler 2.0 Feature Requests:
 I am planning to make Udeler 2.0 a big release with a lot of new features and improvements. For requesting a feature, Click [here](https://github.com/FaisalUmair/udemy-downloader-gui/issues/172)
 
-### Udeler Web Anouncement:
+
+### Facing Login Issues?
+Since Udeler v1.6.3, there is support for login through Udeler Authenticator (A chrome extension for easily authenticating a Udemy account with Udeler).
+
+#### How to use Udeler Authenticator?
+1. Install the extension from [here](https://chrome.google.com/webstore/detail/udeler-authenticator/opfpmfccfeapffpepeldbcpmkieepgib)
+
+2. After installing/enabling the extension, open udeler desktop app, you will see a new anonymous icon on the login page. Click the icon and it will start to listen for any login requests from your chrome web browser.
+
+3. Open Udemy website on your chrome web browser and simply login to your account. Udeler app will detect the login and will let you in. If you are already logged in to Udemy, you can simply visit the website and it will still detect your account.
+
+
+### Udeler Web Announcement:
 In case you only want the download links of videos. You can use the Web version of Udeler.
 
 [https://www.udeler.com](https://www.udeler.com)
@@ -32,10 +44,10 @@ This software does not magically download any paid course available on Udemy, yo
 
 | Platform | Arch | Version | Link|
 | --- | --- | --- | --- |
-| Windows | x64 | 1.6.2 | [Download](https://github.com/FaisalUmair/udemy-downloader-gui/releases/download/v1.6.2/Udeler-Setup-1.6.2-windows-x64.exe)|
-| Windows | x86 | 1.6.2 | [Download](https://github.com/FaisalUmair/udemy-downloader-gui/releases/download/v1.6.2/Udeler-Setup-1.6.2-windows-x86.exe)|
-| Mac | x64 | 1.6.2 | [Download](https://github.com/FaisalUmair/udemy-downloader-gui/releases/download/v1.6.2/Udeler-1.6.2-mac.zip)|
-| Linux | x86_x64 | 1.6.2 | [Download](https://github.com/FaisalUmair/udemy-downloader-gui/releases/download/v1.6.2/Udeler-1.6.2-linux-x86_x64.AppImage)|
+| Windows | x64 | 1.6.3 | [Download](https://github.com/FaisalUmair/udemy-downloader-gui/releases/download/v1.6.3/Udeler-Setup-1.6.3-windows-x64.exe)|
+| Windows | x86 | 1.6.3 | [Download](https://github.com/FaisalUmair/udemy-downloader-gui/releases/download/v1.6.3/Udeler-Setup-1.6.3-windows-x86.exe)|
+| Mac | x64 | 1.6.3 | [Download](https://github.com/FaisalUmair/udemy-downloader-gui/releases/download/v1.6.3/Udeler-1.6.3-mac.zip)|
+| Linux | x86_x64 | 1.6.3 | [Download](https://github.com/FaisalUmair/udemy-downloader-gui/releases/download/v1.6.3/Udeler-1.6.3-linux-x86_x64.AppImage)|
 
 ### Note: 
 By default the courses will be downloaded to the user's Download folder. The structure of course content will be preserved.
