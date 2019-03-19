@@ -33,7 +33,7 @@ matrix:
       install:
         - rm -f package-lock.json
         - npm install
-        - npm updatepackage-lock.json
+        - npm update
       script:
         - npm run build-win
       after_success:
@@ -47,7 +47,7 @@ matrix:
       install:
         - rm -f package-lock.json
         - npm install
-        - npm updatepackage-lock.json
+        - npm update
       script:
         - "travis_wait 30 sleep 1800 &"
         - npm run build-linux
@@ -63,7 +63,7 @@ matrix:
       install:
         - rm -f package-lock.json
         - npm install
-        - npm updatepackage-lock.json
+        - npm update
       script:
         - "travis_wait 30 sleep 1800 &"
         - npm run build-mac
