@@ -29,7 +29,7 @@ matrix:
         - sudo apt-add-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ xenial main'
         - sudo apt-get update -qy
         - sudo apt-get install -y mono-complete ca-certificates-mono
-        - sudo apt-get install --install-recommends -y wine64-* winehq-stable
+        - sudo apt-get install --install-recommends -y winehq-stable=4.0~xenial
       install:
         - npm install
       script:
@@ -49,6 +49,7 @@ matrix:
         - npm run build-linux
       after_success:
         - curl --progress-bar --upload-file dist/Udeler*.AppImage https://transfer.sh/ && echo ""
+        - curl --progress-bar --upload-file dist/Udeler*.snap https://transfer.sh/ && echo ""
     - name: "Build for MacOS"
       os: osx
       osx_image: xcode9.4
@@ -66,7 +67,7 @@ matrix:
 
 branches:
   only:
-    - release
+    - updates
   except:
     - /^(?i:untagged)-.*$/
     - /^v\d+\.\d+(\.\d+)?(-\S*)?$/
@@ -83,9 +84,10 @@ deploy:
   file_glob: true
   file:
     - dist/Udeler*.AppImage
+    - dist/Udeler*.snap
     - dist/Udeler*.exe
     - dist/Udeler*.dmg
     - dist/Udeler*.zip
   on:
     tags: true
-    branch: release
+    branch: updates
