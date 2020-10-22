@@ -68,6 +68,7 @@ before_deploy:
   - git config --local user.email "rokibhasansagar2014@outlook.com"
   - export TRAVIS_TAG=${TRAVIS_TAG:-Udeler-Snapshot-$(date +'%Y%m%d')}
   - git tag $TRAVIS_TAG
+  - ls -lAog dist/
 
 deploy:
   skip_cleanup: true
