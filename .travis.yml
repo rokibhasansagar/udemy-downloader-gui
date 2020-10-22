@@ -1,0 +1,82 @@
+language: node_js
+node_js: "lts/*"
+
+cache:
+  directories:
+    - node_modules
+
+git:
+  depth: 3
+
+matrix:
+  include:
+    - os: linux
+      dist: bionic
+      group: edge
+      addons:
+        apt:
+          update: true
+      install:
+        - npm install
+      script:
+        - "travis_wait 30 sleep 1800 &"
+        - npm run build-linux
+    - os: linux
+      dist: bionic
+      group: edge
+      addons:
+        apt:
+          update: true
+      before_install:
+        - "travis_wait 30 sleep 1800 &"
+        - sudo dpkg --add-architecture i386
+        - sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
+        - sudo apt-get install apt-transport-https ca-certificates
+        - echo "deb https://download.mono-project.com/repo/ubuntu stable-bionic main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
+        - wget -nc https://dl.winehq.org/wine-builds/winehq.key
+        - sudo apt-key add winehq.key
+        - sudo apt-add-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ bionic main'
+        - sudo apt-get update -qy
+        - sudo apt-get install -y mono-complete ca-certificates-mono
+        - sudo apt-get install --install-recommends -y winehq-stable wine-stable wine-stable-amd64 wine-stable-i386
+      install:
+        - npm install
+      script:
+        - "travis_wait 30 sleep 1800 &"
+        - npm run build-win
+    - os: osx
+      osx_image: xcode9.4
+      addons:
+        homebrew:
+          update: true
+      install:
+        - npm install
+      script:
+        - "travis_wait 30 sleep 1800 &"
+        - npm run build-mac
+
+branches:
+  only:
+    - master
+  except:
+    - /^(?i:untagged)-.*$/
+    - /^v\d+\.\d+(\.\d+)?(-\S*)?$/
+
+
+before_deploy:
+  - git config --local user.name "rokibhasansagar"
+  - git config --local user.email "rokibhasansagar2014@outlook.com"
+  - export TRAVIS_TAG=${TRAVIS_TAG:-Udeler-Snapshot-$(date +'%Y%m%d')}
+  - git tag $TRAVIS_TAG
+
+deploy:
+  skip_cleanup: true
+  provider: releases
+  api_key: $GitOAUTHToken
+  file_glob: true
+  file:
+    - dist/Udeler*.AppImage
+    - dist/Udeler*.exe
+    - dist/Udeler*.dmg
+    - dist/Udeler*.zip
+
