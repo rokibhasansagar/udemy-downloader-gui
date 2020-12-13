@@ -28,7 +28,7 @@ matrix:
         apt:
           update: true
         sources:
-          - cybermax-dexter/sdl2-backport
+          - cybermax-dexter
       before_install:
         - "travis_wait 30 sleep 1800 &"
         - sudo dpkg --add-architecture i386
@@ -39,7 +39,7 @@ matrix:
         - sudo apt-key add winehq.key
         - sudo apt-add-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ bionic main'
         - sudo apt-get update -qy
-        - sudo apt install --install-recommends -qy mono-complete ca-certificates-mono winehq-stable wine-stable
+        - sudo apt install --install-recommends -qy mono-complete ca-certificates-mono winehq-stable wine-stable wine-stable-i386 wine-stable-amd64
       install:
         - npm install
       script:
